@@ -1,18 +1,19 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import Gif from './components/gif'
 import SearchBar from './components/SearchBar'
-import GifList from './components/GifList'
+// import GifList from './components/GifList'
+import React from 'react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  // const [count, setCount] = useState(0)
 
   return (
     <div>
       <div className="left-scene">left scene
         <div className="form-search">
-        <SearchBar /> 
-        </div>  
+          <SearchBar />
+        </div>
       <div className="selected-gif">
             <Gif />
         </div>
