@@ -1,10 +1,16 @@
 #root {
+  /* display: flex; */
   display: flex;
   height: 100vh;
+  /* grid-template-columns: 1fr 1fr */
+  /* width: 100vw; */
+  /* flex-direction: row; */
 }
 
 .left-scene {
   flex: 0 0 60%;
+
+  /* width: 60%; */
   position: sticky;
   display: flex;
   flex-direction: column;
@@ -46,6 +52,7 @@
 }
 
 .right-scene {
+  /* width: 40%; */
   flex: 0 0 40%;
   background-color: #ecf0f1;
   overflow: scroll;
