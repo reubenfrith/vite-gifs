@@ -17,6 +17,8 @@
   border: none;
   font-size: 2.6em;
   box-shadow: none;
+  display: flex;
+  align-items: center;
 }
 
 .left-scene .form-search:focus {
