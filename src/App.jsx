@@ -2,47 +2,53 @@
 import Gif from './components/gif'
 import SearchBar from './components/SearchBar'
 import GifList from './components/GifList'
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import './App.css'
 
-const App = () => {
+class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      gifs: [],
+      selectedGif: 'PtYsKeuRNq8JqxatkT'
+    }
+    this.searchQuery = this.searchQuery.bind(this)
+    this.selectGif = this.selectGif.bind(this)
+  }
   // const [count, setCount] = useState(0)
-  const [gifs, setGifs] = useState(['xT9IgDEI1iZyb2wqo8'])
+  // const [gifs, setGifs] = useState(['xT9IgDEI1iZyb2wqo8'])
 
-  useEffect(() => {
-    async function fetchGifs () {
-      const response = await fetch('https://api.giphy.com/v1/gifs/search?api_key=Yoghxcc8Vg0ulwYwc7Nr942aKHNN43ro&q=homer&limit=25&offset=0&lang=en')
-      const data = await response.json()
+  searchQuery = async (query) => {
+    const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=Yoghxcc8Vg0ulwYwc7Nr942aKHNN43ro&q=${query}&limit=25&offset=0&lang=en`)
+    const data = await response.json()
+    const result = data.data.map((gif) => { return { id: gif.id } })
+    // setGifs(result)
+    this.setState({ gifs: result })
+  }
 
-      // console.log(JSON.stringify(data))
-      const result = data.data.map((gif) => { return { id: gif.id } })
-      setGifs(result)
+  selectGif = (id) => {
+    this.setState({ selectedGif: id })
+  }
+
+  render () {
+    if (this.state.gifs.length === 0) {
+      this.searchQuery('monster')
     }
 
-    fetchGifs()
-  }, [])
-  // gifs()
-
-  // const gifs = [
-  //   { id: 'xT9IgDEI1iZyb2wqo8' },
-  //   { id: '3o6ZtaO9BZHcOjmErm' },
-  //   { id: '3o6Zt5jXZdVJiN1eR6' },
-  //   { id: '3o6Zt6Uz0ZdX3RdKVG' }
-  // ]
-
-  return (
+    return (
     <div id="app">
     <div className="left-scene">
-      <SearchBar />
+      <SearchBar searchFunction={this.searchQuery}/>
       <div className="selected-gif">
-        <Gif id={gifs[0].id}/>
+          <Gif id={this.state.selectedGif} />
       </div>
     </div>
     <div className="right-scene">
-      <GifList gifList={gifs} />
+      <GifList gifList={this.state.gifs} GifListSelectGif={this.selectGif} />
     </div>
   </div>
-  )
+    )
+  }
 }
 
 export default App
