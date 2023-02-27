@@ -1,6 +1,8 @@
 import Gif from './components/gif'
 import SearchBar from './components/SearchBar'
 import GifList from './components/GifList'
+import CopyLink from './components/CopyLink'
+
 import React, { Component } from 'react'
 import './App.css'
 
@@ -37,6 +39,7 @@ class App extends Component {
       <SearchBar searchFunction={this.searchQuery}/>
       <div className="selected-gif">
           <Gif id={this.state.selectedGif} />
+          <CopyLink />
       </div>
     </div>
     <div className="right-scene">
