@@ -35,15 +35,17 @@ const CopyContainer = styled.div`
 `
 
 class CopyLink extends Component {
-  handleClick = (e) => {
-    navigator.clipboard.writeText('Copy this text to clipboard')
-    console.log(e)
+  handleClick = () => {
+    navigator.clipboard.writeText(this.props.link)
   }
 
   render () {
+    const { link } = this.props
     return <CopyContainer>
-      <Link>Some text to copy</Link>
-      <Button onClick={this.handleClick}>
+      <Link>
+        {link}
+      </Link>
+      <Button link={link} onClick={this.handleClick}>
         Copy
       </Button>
     </CopyContainer>

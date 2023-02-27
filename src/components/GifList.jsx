@@ -6,7 +6,7 @@ class GifList extends Component {
     const { gifList, GifListSelectGif } = this.props
     return (
       <div className='gif-list'>
-        {gifList.map((gif) => { return <Gif id={gif.id} key={gif.id} GifSelectedGif={GifListSelectGif} /> })}
+        {gifList.map((gif) => { return <Gif id={gif.id} key={gif.id} link={gif.link} GifSelectedGif={GifListSelectGif} /> })}
       </div>
     )
   }

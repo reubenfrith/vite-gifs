@@ -1,8 +1,6 @@
-import Gif from './components/gif'
+import GifHero from './components/GifHero'
 import SearchBar from './components/SearchBar'
 import GifList from './components/GifList'
-import CopyLink from './components/CopyLink'
-
 import React, { Component } from 'react'
 import './App.css'
 
@@ -11,7 +9,10 @@ class App extends Component {
     super(props)
     this.state = {
       gifs: [],
-      selectedGif: 'PtYsKeuRNq8JqxatkT'
+      selectedGif: {
+        id: 'PtYsKeuRNq8JqxatkT',
+        link: 'https://giphy.com/embed/PtYsKeuRNq8JqxatkT'
+      }
     }
     this.searchQuery = this.searchQuery.bind(this)
     this.selectGif = this.selectGif.bind(this)
@@ -20,12 +21,18 @@ class App extends Component {
   searchQuery = async (query) => {
     const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=Yoghxcc8Vg0ulwYwc7Nr942aKHNN43ro&q=${query}&limit=25&offset=0&lang=en`)
     const data = await response.json()
-    const result = data.data.map((gif) => { return { id: gif.id } })
+    const result = data.data.map((gif) => { return { id: gif.id, link: gif.embed_url } })
     this.setState({ gifs: result })
   }
 
-  selectGif = (id) => {
-    this.setState({ selectedGif: id })
+  selectGif = (id, link) => {
+    console.log('ID:', id, 'Link:', link)
+    this.setState({
+      selectedGif: {
+        id,
+        link
+      }
+    })
   }
 
   render () {
@@ -37,10 +44,7 @@ class App extends Component {
     <div id="app">
     <div className="left-scene">
       <SearchBar searchFunction={this.searchQuery}/>
-      <div className="selected-gif">
-          <Gif id={this.state.selectedGif} />
-          <CopyLink />
-      </div>
+      <GifHero id={this.state.selectedGif.id} link={this.state.selectedGif.link} />
     </div>
     <div className="right-scene">
       <GifList gifList={this.state.gifs} GifListSelectGif={this.selectGif} />
